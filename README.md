@@ -1,31 +1,24 @@
 ![govalidator](govalidator.png)
 
-[![Build Status](https://travis-ci.org/thedevsaddam/govalidator.svg?branch=master)](https://travis-ci.org/thedevsaddam/govalidator)
-[![Project status](https://img.shields.io/badge/version-1.9-green.svg)](https://github.com/thedevsaddam/govalidator/releases)
-[![Go Report Card](https://goreportcard.com/badge/github.com/thedevsaddam/govalidator)](https://goreportcard.com/report/github.com/thedevsaddam/govalidator)
-[![Coverage Status](https://coveralls.io/repos/github/thedevsaddam/govalidator/badge.svg?branch=master)](https://coveralls.io/github/thedevsaddam/govalidator?branch=master)
-[![GoDoc](https://godoc.org/github.com/thedevsaddam/govalidator?status.svg)](https://godoc.org/github.com/thedevsaddam/govalidator)
+[![GoDoc](https://godoc.org/github.com/System-Glitch/govalidator?status.svg)](https://godoc.org/github.com/System-Glitch/govalidator)
 [![License](https://img.shields.io/dub/l/vibe-d.svg)](https://github.com/thedevsaddam/govalidator/blob/dev/LICENSE.md)
 
 Validate golang request data with simple rules. Highly inspired by Laravel's request validation.
 
+**Goal of this fork:** this fork adds a way to compare two fields together in a validation rule.
 
 ### Installation
 
 Install the package using
 ```go
-$ go get github.com/thedevsaddam/govalidator
-// or
-$ go get gopkg.in/thedevsaddam/govalidator.v1
+$ go get github.com/System-Glitch/govalidator
 ```
 
 ### Usage
 
 To use the package import it in your `*.go` code
 ```go
-import "github.com/thedevsaddam/govalidator"
-// or
-import "gopkg.in/thedevsaddam/govalidator.v1"
+import "github.com/System-Glitch/govalidator"
 ```
 
 ### Example
@@ -41,7 +34,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/thedevsaddam/govalidator"
+	"github.com/System-Glitch/govalidator"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -282,8 +275,9 @@ If you are interested to make the package better please send pull requests or cr
 - [Sakib Sami](https://github.com/s4kibs4mi)
 - [Rip](https://github.com/ripbandit)
 - [Jose Nazario](https://github.com/paralax)
+- [Jérémy LAMBERT](https://github.com/System-Glitch)
 
-### See all [contributors](https://github.com/thedevsaddam/govalidator/graphs/contributors)
+### See all [contributors](https://github.com/System-Glitch/govalidator/graphs/contributors)
 
 ### See [benchmarks](doc/BENCHMARK.md)
 ### Read [API documentation](https://godoc.org/github.com/thedevsaddam/govalidator)
