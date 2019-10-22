@@ -5,7 +5,7 @@
 
 Validate golang request data with simple rules. Highly inspired by Laravel's request validation.
 
-**Goal of this fork:** this fork adds a way to compare two fields together in a validation rule.
+**Goal of this fork:** this fork adds a way to compare two fields together in a validation rule and adds more validation rules.
 
 ### Installation
 
@@ -130,11 +130,13 @@ Send request to the server using curl or postman: `curl GET "http://localhost:90
 * `numeric` The field under validation must be entirely numeric characters.
 * `numeric_between:numeric,numeric` The field under validation must be a numeric value between the range.
    e.g: `numeric_between:18,65` may contains numeric value like `35`, `55` . You can also pass float value to check. Moreover, both bounds can be omitted to create an unbounded minimum (e.g: `numeric_between:,65`) or an unbounded maximum (e.g: `numeric_between:-1,`).
+* `string` The field under validation must be a string.
 * `bool` The field under validation must be able to be cast as a boolean. Accepted input are `true, false, 1, 0, "1" and "0"`.
 * `credit_card` The field under validation must have a valid credit card number. Accepted cards are `Visa, MasterCard, American Express, Diners Club, Discover and JCB card`
 * `coordinate` The field under validation must have a value of valid coordinate.
 * `css_color` The field under validation must have a value of valid CSS color. Accepted colors are `hex, rgb, rgba, hsl, hsla` like `#909, #00aaff, rgb(255,122,122)`
 * `date` The field under validation must have a valid date of format yyyy-mm-dd or yyyy/mm/dd.
+* `date-iso8601` The field under validation must have a valid date of format YYYY-MM-DDThh:mm:ss.
 * `date:dd-mm-yyyy` The field under validation must have a valid date of format dd-mm-yyyy.
 * `digits:int` The field under validation must be numeric and must have an exact length of value.
 * `digits_between:int,int` The field under validation must be numeric and must have length between the range.
@@ -150,6 +152,7 @@ Send request to the server using curl or postman: `curl GET "http://localhost:90
    e.g: `max:6` may contains characters maximum length of 6 like `"john doe", "jane doe"` but not `"john", "jane"`
 * `len:numeric` The field under validation must have an exact length of characters, exact integer or float value, exact size of map/slice.
    e.g: `len:4` may contains characters exact length of 4 like `Food, Mood, Good`
+* `array` The field under validation must be an array (will be a slice when converted in Go)
 * `ip` The field under validation must be a valid IP address.
 * `ip_v4` The field under validation must be a valid IP V4 address.
 * `ip_v6` The field under validation must be a valid IP V6 address.

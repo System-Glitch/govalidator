@@ -2308,3 +2308,201 @@ func Test_Comparison_URL_Encoded(t *testing.T) {
 		t.Error("comparison validation failed!")
 	}
 }
+
+func Test_String(t *testing.T) {
+	type user struct {
+		Input string `json:"input"`
+	}
+
+	postUser := user{Input: "test"}
+	var userObj user
+
+	body, _ := json.Marshal(postUser)
+	req, _ := http.NewRequest("POST", "http://www.example.com", bytes.NewReader(body))
+
+	messages := MapData{
+		"input": []string{"string:custom_message"},
+	}
+
+	rules := MapData{
+		"input": []string{"string"},
+	}
+
+	opts := Options{
+		Request:  req,
+		Data:     &userObj,
+		Rules:    rules,
+		Messages: messages,
+	}
+
+	vd := New(opts)
+	validationErr := vd.ValidateJSON()
+	if len(validationErr) != 0 {
+		t.Error("string validation was triggered when valid!")
+	}
+}
+
+func Test_String_Invalid(t *testing.T) {
+	type user struct {
+		Input int `json:"input"`
+	}
+
+	postUser := user{Input: 3}
+	var userObj user
+
+	body, _ := json.Marshal(postUser)
+	req, _ := http.NewRequest("POST", "http://www.example.com", bytes.NewReader(body))
+
+	messages := MapData{
+		"input": []string{"string:custom_message"},
+	}
+
+	rules := MapData{
+		"input": []string{"string"},
+	}
+
+	opts := Options{
+		Request:  req,
+		Data:     &userObj,
+		Rules:    rules,
+		Messages: messages,
+	}
+
+	vd := New(opts)
+	validationErr := vd.ValidateJSON()
+	if len(validationErr) == 0 {
+		t.Error("string validation was not triggered when invalid!")
+	}
+}
+
+func Test_Array(t *testing.T) {
+	type user struct {
+		Input []string `json:"input"`
+	}
+
+	postUser := user{Input: []string{"tom", "henry"}}
+	var userObj user
+
+	body, _ := json.Marshal(postUser)
+	req, _ := http.NewRequest("POST", "http://www.example.com", bytes.NewReader(body))
+
+	messages := MapData{
+		"input": []string{"array:custom_message"},
+	}
+
+	rules := MapData{
+		"input": []string{"array"},
+	}
+
+	opts := Options{
+		Request:  req,
+		Data:     &userObj,
+		Rules:    rules,
+		Messages: messages,
+	}
+
+	vd := New(opts)
+	validationErr := vd.ValidateJSON()
+	if len(validationErr) != 0 {
+		t.Error("array validation was triggered when valid!")
+	}
+}
+
+func Test_Array_Invalid(t *testing.T) {
+	type user struct {
+		Input string `json:"input"`
+	}
+
+	postUser := user{Input: "tom"}
+	var userObj user
+
+	body, _ := json.Marshal(postUser)
+	req, _ := http.NewRequest("POST", "http://www.example.com", bytes.NewReader(body))
+
+	messages := MapData{
+		"input": []string{"array:custom_message"},
+	}
+
+	rules := MapData{
+		"input": []string{"array"},
+	}
+
+	opts := Options{
+		Request:  req,
+		Data:     &userObj,
+		Rules:    rules,
+		Messages: messages,
+	}
+
+	vd := New(opts)
+	validationErr := vd.ValidateJSON()
+	if len(validationErr) == 0 {
+		t.Error("array validation was not triggered when invalid!")
+	}
+}
+
+func Test_ISO8601Date(t *testing.T) {
+	type user struct {
+		Input string `json:"input"`
+	}
+
+	postUser := user{Input: "2006-01-02T15:04:05"}
+	var userObj user
+
+	body, _ := json.Marshal(postUser)
+	req, _ := http.NewRequest("POST", "http://www.example.com", bytes.NewReader(body))
+
+	messages := MapData{
+		"input": []string{"date-iso8601:custom_message"},
+	}
+
+	rules := MapData{
+		"input": []string{"date-iso8601"},
+	}
+
+	opts := Options{
+		Request:  req,
+		Data:     &userObj,
+		Rules:    rules,
+		Messages: messages,
+	}
+
+	vd := New(opts)
+	validationErr := vd.ValidateJSON()
+	if len(validationErr) != 0 {
+		t.Error("date-iso8601 validation was triggered when valid!")
+	}
+}
+
+func Test_ISO8601Date_Invalid(t *testing.T) {
+	type user struct {
+		Input string `json:"input"`
+	}
+
+	postUser := user{Input: "2019-10-03T10:02:70"}
+	var userObj user
+
+	body, _ := json.Marshal(postUser)
+	req, _ := http.NewRequest("POST", "http://www.example.com", bytes.NewReader(body))
+
+	messages := MapData{
+		"input": []string{"date-iso8601:custom_message"},
+	}
+
+	rules := MapData{
+		"input": []string{"date-iso8601"},
+	}
+
+	opts := Options{
+		Request:  req,
+		Data:     &userObj,
+		Rules:    rules,
+		Messages: messages,
+	}
+
+	vd := New(opts)
+	validationErr := vd.ValidateJSON()
+	if len(validationErr) == 0 {
+		t.Error("date-iso8601 validation was not triggered when invalid!")
+	}
+}

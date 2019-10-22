@@ -9,6 +9,7 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
+	"time"
 )
 
 var rulesFuncMap = make(map[string]func(string, string, string, interface{}, map[string]interface{}) error)
@@ -1077,5 +1078,34 @@ func init() {
 			return err
 		}
 		return nil
+	})
+
+	AddCustomRule("string", func(field string, rule string, message string, value interface{}, form map[string]interface{}) error {
+		_, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("The %s field must be a string", field)
+		}
+		return nil
+	})
+
+	AddCustomRule("array", func(field string, rule string, message string, value interface{}, form map[string]interface{}) error {
+		s := reflect.ValueOf(value)
+		if s.Kind() != reflect.Slice {
+			return fmt.Errorf("The %s field must be an array", field)
+		}
+		return nil
+	})
+
+	AddCustomRule("date-iso8601", func(field string, rule string, message string, value interface{}, form map[string]interface{}) error {
+		v, ok := value.(string)
+		validationError := fmt.Errorf("The %s field must be a date using the YYYY-MM-DDThh:mm:ss format", field)
+		if ok {
+			_, err := time.Parse("2006-01-02T15:04:05", v)
+			if err != nil {
+				return validationError
+			}
+			return nil
+		}
+		return validationError
 	})
 }
