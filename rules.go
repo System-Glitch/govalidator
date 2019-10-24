@@ -1083,7 +1083,11 @@ func init() {
 	AddCustomRule("string", func(field string, rule string, message string, value interface{}, form map[string]interface{}) error {
 		_, ok := value.(string)
 		if !ok {
-			return fmt.Errorf("The %s field must be a string", field)
+			err := fmt.Errorf("The %s field must be a string", field)
+			if message != "" {
+				err = errors.New(message)
+			}
+			return err
 		}
 		return nil
 	})
@@ -1091,7 +1095,11 @@ func init() {
 	AddCustomRule("array", func(field string, rule string, message string, value interface{}, form map[string]interface{}) error {
 		s := reflect.ValueOf(value)
 		if s.Kind() != reflect.Slice {
-			return fmt.Errorf("The %s field must be an array", field)
+			err := fmt.Errorf("The %s field must be an array", field)
+			if message != "" {
+				err = errors.New(message)
+			}
+			return err
 		}
 		return nil
 	})
@@ -1099,6 +1107,9 @@ func init() {
 	AddCustomRule("date-iso8601", func(field string, rule string, message string, value interface{}, form map[string]interface{}) error {
 		v, ok := value.(string)
 		validationError := fmt.Errorf("The %s field must be a date using the YYYY-MM-DDThh:mm:ss format", field)
+		if message != "" {
+			validationError = errors.New(message)
+		}
 		if ok {
 			_, err := time.Parse("2006-01-02T15:04:05", v)
 			if err != nil {
